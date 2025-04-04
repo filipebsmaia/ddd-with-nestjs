@@ -1,6 +1,5 @@
 import { DomainEvent } from '@core/common/domain/domain-event';
-import { Recurring, RecurringStatus } from '@core/recurring/domain/entities/recurring.entity';
-import { IndividualId } from '@core/recurring/domain/entities/individual.entity';
+import { Recurring } from '@core/recurring/domain/entities/recurring.entity';
 
 export class RecurringCreatedEvent extends DomainEvent {
 
@@ -9,5 +8,5 @@ export class RecurringCreatedEvent extends DomainEvent {
   ) {
     super(recurring.id, new Date());
   }
-  
+
 }

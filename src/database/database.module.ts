@@ -9,7 +9,7 @@ import { PrismaManager } from './prisma-manager';
     {
       provide: PrismaManager,
       useFactory: () => {
-        return new PrismaManager()
+        return new PrismaManager();
       },
     },
     {

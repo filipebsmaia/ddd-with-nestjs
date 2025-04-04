@@ -7,7 +7,7 @@ export class RecurringChangedNextAttemptEvent extends DomainEvent {
     readonly recurring: Omit<PropertiesOnly<Recurring>, 'events'>,
     readonly previousNextAttempt: Date | null,
   ) {
-    super(recurring.id, new Date())
+    super(recurring.id, new Date());
   }
-  
+
 }

@@ -1,9 +1,8 @@
 import { PrismaManager } from "@/database/prisma-manager";
 import { UnitOfWork } from "@core/common/application/unit-of-work";
-import { AggregateRoot } from "../domain/aggregate-root";
 
 export class PrismaUnitOfWork extends UnitOfWork {
-  
+
   constructor(private readonly prisma: PrismaManager) {
     super();
   }
@@ -13,5 +12,5 @@ export class PrismaUnitOfWork extends UnitOfWork {
       return await fn();
     });
   }
-  
+
 }

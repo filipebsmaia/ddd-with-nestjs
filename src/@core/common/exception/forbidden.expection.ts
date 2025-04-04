@@ -6,6 +6,6 @@ export abstract class ForbiddenException extends Exception {
     super('Forbidden', message, code, {
       http: HttpStatus.FORBIDDEN,
       grpc: GrpcStatus.PERMISSION_DENIED
-    })
+    });
   }
 }

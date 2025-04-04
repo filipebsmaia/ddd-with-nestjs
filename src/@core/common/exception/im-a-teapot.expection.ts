@@ -6,6 +6,6 @@ export abstract class ImATeapotException extends Exception {
     super('ImATeapot', message, code, {
       http: HttpStatus.I_AM_A_TEAPOT,
       grpc: GrpcStatus.UNKNOWN
-    })
+    });
   }
 }

@@ -6,6 +6,6 @@ export abstract class UnauthorizedException extends Exception {
     super('Unauthorized', message, code, {
       http: HttpStatus.UNAUTHORIZED,
       grpc: GrpcStatus.UNAUTHENTICATED
-    })
+    });
   }
 }

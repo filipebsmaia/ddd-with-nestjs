@@ -1,8 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { PrismaManager } from './database/prisma-manager';
-import { PrismaUnitOfWork } from '@core/common/infra/unit-of-work-prisma';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,11 +15,9 @@ async function bootstrap() {
 }
 bootstrap();
 
-
 // import { PrismaUnitOfWork } from "@core/common/infra/unit-of-work-prisma";
 // import { PrismaManager } from "./database/prisma-manager";
 // import { randomUUID } from 'crypto'
-
 
 // const e = async () => {
 //   const prismaProvider = new PrismaManager();
@@ -37,7 +33,7 @@ bootstrap();
 //   })
 // }
 // e();
-  
+
 // prismaProvider.onModuleDestroy();
 // const err = () => {
 //   throw new Error();

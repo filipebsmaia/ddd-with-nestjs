@@ -15,4 +15,4 @@ declare global {
   type PropertiesOnly<T> = Pick<T, NonMethodKeys<T>>;
 }
 
-export {}
+export {};

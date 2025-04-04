@@ -6,6 +6,6 @@ export abstract class NotFoundException extends Exception {
     super('NotFound', message, code, {
       http: HttpStatus.NOT_FOUND,
       grpc: GrpcStatus.NOT_FOUND
-    })
+    });
   }
 }

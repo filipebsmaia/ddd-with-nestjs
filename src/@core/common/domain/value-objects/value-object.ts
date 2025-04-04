@@ -35,10 +35,10 @@ export abstract class ValueObject<Value = any> {
     if (typeof this.value === 'object') {
       const valueStr = this.value.toString();
       return valueStr === '[object Object]' ? JSON.stringify(this.value) : valueStr;
-    }
+  }
     try {
       return this.value.toString();
-    } catch (e) {
+    } catch (_) {
       return this.value + '';
     }
   };
@@ -57,7 +57,7 @@ export function deepFreeze<T>(obj: T) {
     }
 
     return Object.freeze(obj);
-  } catch (e) {
+  } catch (_) {
     return obj;
   }
 }
