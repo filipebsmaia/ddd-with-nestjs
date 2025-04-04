@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Individual {
+  id             String @id @db.Uuid
+  organizationId String @map("organization_id") @db.Uuid
+
+  recurrings Recurring[]
+
+  @@map("individuals")
+}
+
+enum RecurringStatus {
+  SCHEDULED
+  PROCESSING_CAPTURE
+  CAPTURE_FAILED
+  COMPLETED
+}
+
+model Recurring {
+  id            String          @id @db.Uuid
+  individualId  String          @map("individual_id") @db.Uuid
+  status        RecurringStatus
+  scheduledTo   DateTime?       @map("scheduled_to")
+  nextAttempt   DateTime?       @map("next_attempt")
+  totalAttempts Int             @map("total_attempts")
+  maxAttempts   Int             @map("max_attempts")
+  orderId       String?         @map("order_id") @db.Uuid
+
+  individual Individual @relation(fields: [individualId], references: [id])
+
+  @@map("recurrings")
+}
+
+enum OrderStatus {
+  PENDING
+  FAILED
+  PAID
+  CANCELLED
+}
+
+model Order {
+  id     String      @id @db.Uuid
+  status OrderStatus
+
+  @@map("orders")
+}
