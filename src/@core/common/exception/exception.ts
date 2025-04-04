@@ -7,7 +7,7 @@ export abstract class Exception extends Error {
     public readonly code: string,
     public readonly protocolDict: ExceptionProtocolDict
   ) {
-    super(message)
+    super(message);
     this.name = type;
     this.code = code;
   }

@@ -55,8 +55,8 @@ export const HttpStatus = {
   HTTP_VERSION_NOT_SUPPORTED: 505,
   INSUFFICIENT_STORAGE: 507,
   LOOP_DETECTED: 508
-}
-export type HttpStatus = Enumerize<typeof HttpStatus>
+};
+export type HttpStatus = Enumerize<typeof HttpStatus>;
 
 export const GrpcStatus = {
   OK: 0,
@@ -76,10 +76,10 @@ export const GrpcStatus = {
   UNAVAILABLE: 14,
   DATA_LOSS: 15,
   UNAUTHENTICATED: 16,
-}
+};
 export type GrpcStatus = Enumerize<typeof GrpcStatus>;
 
 export type ExceptionProtocolDict = {
   http: GrpcStatus
   grpc: GrpcStatus
-}
+};

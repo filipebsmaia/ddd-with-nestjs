@@ -9,19 +9,24 @@ interface CreateRecurringProps {
 export class RecurringService {
 
   constructor(private individualRepository: IndividualRepository, private uow: UnitOfWork) {
-    
+
   }
 
   async createNewRecurring({ individualId }: CreateRecurringProps) {
     const individual = await this.individualRepository.findById(individualId);
 
-    if(!individual) {
-      throw new IndividualNotFoundError(individualId)
+    if (!individual) {
+      throw new IndividualNotFoundError(individualId);
     }
-    
+
     individual.addNewRecurring({
       scheduledTo: (() => { const date = new Date(); date.setMonth(date.getMonth() + 1); return date; })()
-    })
+    });
+
+    const date = new Date();
+    date.setMonth(date.getMonth() + 2);
+
+    individual.recurrings[individual.recurrings.length - 1]!.scheduleNextAttemptTo(date);
 
     this.individualRepository.add(individual);
     return individual;

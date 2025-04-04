@@ -18,11 +18,9 @@ export class IndividualPrismaRepository implements IndividualRepository {
     return this.prismaManager.client;
   }
 
-
-  //! TODO: Testar separando e usando uow
   async add(entity: Individual): Promise<void> {
     const { recurrings, ...individual } = IndividualPrismaMapper.toPersistence(entity);
-    console.log(recurrings)
+    console.log(recurrings);
 
     this.uow.runTransaction(async () => {
       await this.repository.individual.upsert({
@@ -35,12 +33,12 @@ export class IndividualPrismaRepository implements IndividualRepository {
         update: {
           ...individual,
         },
-      })
+      });
 
       await Promise.all(
         recurrings.map(recurring => this.recurringRepository.add(RecurringPrismaMapper.toDomain(recurring)))
-      )
-    })
+      );
+    });
   }
 
   async findById(id: string): Promise<Individual | undefined> {
@@ -51,11 +49,11 @@ export class IndividualPrismaRepository implements IndividualRepository {
       include: {
         recurrings: true
       }
-    })
+    });
 
-    if(raw) {
+    if (raw) {
       const entity = IndividualPrismaMapper.toDomain(raw);
-  
+
       return entity;
 
     }

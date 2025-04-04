@@ -15,10 +15,9 @@ export type IndividualConstructorProps = {
 };
 
 export type IndividualCreateCommand = CommandFromConstructor<
-  IndividualConstructorProps, 
+  IndividualConstructorProps,
   'id' | 'organizationId'
 >;
-
 
 export class Individual extends AggregateRoot {
 
@@ -45,22 +44,22 @@ export class Individual extends AggregateRoot {
     return individual;
   }
 
-  addNewRecurring({scheduledTo}: AddNewRecurringCommand){
+  addNewRecurring({ scheduledTo }: AddNewRecurringCommand){
     const newRecurring = Recurring.create({
       individualId: this.id,
       scheduledTo: scheduledTo,
       status: RecurringStatus.SCHEDULED
-    })
-    
+    });
+
     this.recurrings.push(newRecurring);
   }
-  
+
   toJSON() {
     const data: Record<keyof PropertiesOnly<Omit<Individual, 'events'>>, any> = {
       id: this.id.value,
       recurrings: this.recurrings.map(recurring => recurring.toJSON()),
       organizationId: this.organizationId,
-    }
+    };
     return data;
   }
 }

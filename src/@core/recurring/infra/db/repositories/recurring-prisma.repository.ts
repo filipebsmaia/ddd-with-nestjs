@@ -13,8 +13,6 @@ export class RecurringPrismaRepository implements RecurringRepository {
     return this.prismaManager.client;
   }
 
-
-  //! TODO: Testar separando e usando uow
   async add(entity: Recurring): Promise<void> {
     const recurring = RecurringPrismaMapper.toPersistence(entity);
 
@@ -24,7 +22,7 @@ export class RecurringPrismaRepository implements RecurringRepository {
       },
       create: recurring,
       update: recurring,
-    })
+    });
   }
 
 }

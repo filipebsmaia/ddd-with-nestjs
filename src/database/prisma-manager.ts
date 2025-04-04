@@ -19,14 +19,14 @@ export class PrismaManager implements OnModuleInit {
 
     return txAsyncHook ?? this.prisma;
   }
-  
+
   // TODO: Move to UoW?
   async runTransaction<T>(fn: () => Promise<T>): Promise<T> {
     return this.prisma.$transaction(async (tx) => {
       return this.asyncLocalStorage.run(tx, async () => {
         const result = await fn();
         return result;
-      })
+      });
     });
   }
 }

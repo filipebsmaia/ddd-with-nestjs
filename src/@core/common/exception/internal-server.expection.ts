@@ -6,6 +6,6 @@ export abstract class InternalServerException extends Exception {
     super('InternalServer', message, code, {
       http: HttpStatus.INTERNAL_SERVER_ERROR,
       grpc: GrpcStatus.INTERNAL
-    })
+    });
   }
 }

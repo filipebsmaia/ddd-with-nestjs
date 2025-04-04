@@ -9,9 +9,9 @@ export const RecurringStatus = {
   PROCESSING_CAPTURE: 'PROCESSING_CAPTURE',
   CAPTURE_FAILED: 'CAPTURE_FAILED',
   COMPLETED: 'COMPLETED',
-}
+};
 
-export type RecurringStatus = Enumerize<typeof RecurringStatus>
+export type RecurringStatus = Enumerize<typeof RecurringStatus>;
 
 export class RecurringId extends Uuid {}
 
@@ -27,10 +27,9 @@ export type RecurringConstructorProps = {
 };
 
 export type RecurringCreateCommand = CommandFromConstructor<
-  RecurringConstructorProps, 
+  RecurringConstructorProps,
   'id' | 'individualId'
 >;
-
 
 export class Recurring extends AggregateRoot {
   id: RecurringId;
@@ -42,7 +41,7 @@ export class Recurring extends AggregateRoot {
   maxAttempts: number;
   orderId: string | null;
 
-  constructor({id, individualId, status, scheduledTo, nextAttempt, totalAttempts, maxAttempts, orderId}: RecurringConstructorProps) {
+  constructor({ id, individualId, status, scheduledTo, nextAttempt, totalAttempts, maxAttempts, orderId }: RecurringConstructorProps) {
     super();
     this.id = typeof id === 'string' ? new RecurringId(id) : id ?? new RecurringId();
     this.individualId = typeof individualId === 'string' ? new IndividualId(individualId) : individualId;
@@ -65,16 +64,16 @@ export class Recurring extends AggregateRoot {
       status: status ?? RecurringStatus.SCHEDULED,
       totalAttempts: totalAttempts ?? 0,
     });
-    recurring.addEvent(new RecurringCreatedEvent(recurring));
+    recurring.addEvent(new RecurringCreatedEvent(recurring.toJSON()));
     return recurring;
   }
 
   scheduleNextAttemptTo(date: Date) {
     const previousNextAttempt = this.nextAttempt ? new Date(this.nextAttempt.getTime()) : null;
     this.nextAttempt = date;
-    this.addEvent(new RecurringChangedNextAttemptEvent(this, previousNextAttempt))
+    this.addEvent(new RecurringChangedNextAttemptEvent(this, previousNextAttempt));
   }
-  
+
   toJSON() {
     const data: Record<keyof PropertiesOnly<Omit<Recurring, 'events'>>, any> = {
       id: this.id.value,
@@ -85,7 +84,7 @@ export class Recurring extends AggregateRoot {
       totalAttempts: this.totalAttempts,
       maxAttempts: this.maxAttempts,
       orderId: this.orderId,
-    }
+    };
     return data;
   }
 }

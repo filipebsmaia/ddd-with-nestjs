@@ -7,6 +7,6 @@ export abstract class ConflictException extends Exception {
     super('Conflict', message, code, {
       http: HttpStatus.CONFLICT,
       grpc: GrpcStatus.ALREADY_EXISTS
-    })
+    });
   }
 }
