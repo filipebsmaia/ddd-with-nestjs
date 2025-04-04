@@ -18,8 +18,6 @@ export class IndividualPrismaRepository implements IndividualRepository {
     return this.prismaManager.client;
   }
 
-
-  //! TODO: Testar separando e usando uow
   async add(entity: Individual): Promise<void> {
     const { recurrings, ...individual } = IndividualPrismaMapper.toPersistence(entity);
     console.log(recurrings)

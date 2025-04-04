@@ -14,7 +14,6 @@ export class RecurringPrismaRepository implements RecurringRepository {
   }
 
 
-  //! TODO: Testar separando e usando uow
   async add(entity: Recurring): Promise<void> {
     const recurring = RecurringPrismaMapper.toPersistence(entity);
 
