@@ -12,14 +12,12 @@
   "license": "ISC",
   "devDependencies": {
     "@nestjs/cli": "^11.0.5",
-    "@types/lodash": "^4.17.16",
     "@types/node": "^22.13.10",
     "@typescript-eslint/parser": "^8.29.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-import-resolver-typescript": "^4.3.1",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.6",
-    "lodash": "^4.17.21",
     "prisma": "^6.5.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
@@ -27,7 +25,6 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "@nestjs/bull": "^11.0.2",
     "@nestjs/common": "^11.0.11",
     "@nestjs/core": "^11.0.11",
     "@nestjs/microservices": "^11.0.11",
@@ -35,11 +32,11 @@
     "@nestjs/swagger": "^11.1.0",
     "@prisma/client": "^6.5.0",
     "@stylistic/eslint-plugin-ts": "^4.2.0",
-    "bull": "^4.16.5",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "eslint": "^9.24.0",
     "eventemitter2": "^6.4.9",
+    "kafkajs": "^2.2.4",
     "typescript-eslint": "^8.29.0",
     "uuid": "^11.1.0"
   }

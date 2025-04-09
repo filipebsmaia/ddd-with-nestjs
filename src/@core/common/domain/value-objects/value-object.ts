@@ -1,4 +1,4 @@
-import isEqual from 'lodash/isEqual';
+import { isDeepStrictEqual } from 'util';
 
 export abstract class ValueObject<Value = any> {
   protected readonly _value: Value;
@@ -24,7 +24,7 @@ export abstract class ValueObject<Value = any> {
       return false;
     }
 
-    return isEqual(this.value, obj.value);
+    return isDeepStrictEqual(this.value, obj.value);
   }
 
   toString = () => {
