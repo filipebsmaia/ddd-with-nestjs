@@ -1,5 +1,5 @@
 import { IndividualPrismaRepository } from '@core/recurring/infra/db/repositories/individual-prisma.repository';
-import { Module, OnModuleInit, Scope } from '@nestjs/common';
+import { Module, Scope } from '@nestjs/common';
 import { RecurringController } from './recurring.controller';
 import { RecurringService } from '@core/recurring/application/recurring.service';
 import { IndividualRepository } from '@core/recurring/domain/repositories/individual.repository';
@@ -8,6 +8,7 @@ import { RecurringRepository } from '@core/recurring/domain/repositories/recurri
 import { RecurringPrismaRepository } from '@core/recurring/infra/db/repositories/recurring-prisma.repository';
 import { UnitOfWork } from '@core/common/application/unit-of-work';
 import { ApplicationService } from '@core/common/application/application.service';
+import { DomainEventLogHandler } from '@core/recurring/application/handlers/domain-event-log.handler';
 
 @Module({
   imports: [],
@@ -34,12 +35,11 @@ import { ApplicationService } from '@core/common/application/application.service
       },
       inject: [ApplicationService, IndividualRepository, UnitOfWork]
     },
+    {
+      provide: DomainEventLogHandler,
+      useFactory: () => new DomainEventLogHandler(),
+    },
   ],
   controllers: [RecurringController],
 })
-export class RecurringModule implements OnModuleInit {
-
-  onModuleInit() {
-    // throw new Error('Method not implemented.');
-  }
-}
+export class RecurringModule {}

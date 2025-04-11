@@ -1,22 +1,22 @@
-import { DomainEventContext } from '../domain/domain-event-context';
-import { DomainEventManager } from '../domain/domain-event-manager';
+import { EventContext } from '../domain/event/event-context';
+import { EventManager } from '../domain/event/event-manager';
 
 export class ApplicationService {
   constructor(
-    private domainEventManager: DomainEventManager,
+    private eventManager: EventManager,
   ) {}
 
   async start() {}
 
   async finish() {
-    const aggregateRoots = DomainEventContext.getAggregates();
+    const aggregateRoots = EventContext.getAggregates();
 
     for (const aggregateRoot of aggregateRoots) {
-      await this.domainEventManager.publish(aggregateRoot);
+      await this.eventManager.publish(aggregateRoot);
     }
 
     for (const aggregateRoot of aggregateRoots) {
-      await this.domainEventManager.publishForIntegrationEvent(aggregateRoot);
+      await this.eventManager.publishForIntegrationEvent(aggregateRoot);
     }
     aggregateRoots.forEach(aggregateRoot => aggregateRoot.clearEvents());
   }
@@ -24,7 +24,7 @@ export class ApplicationService {
   async fail() {}
 
   async run<T>(callback: () => Promise<T>): Promise<T> {
-    return DomainEventContext.run(async () => {
+    return EventContext.run(async () => {
       await this.start();
       try {
           const result = await callback();

@@ -1,0 +1,32 @@
+import { SagaStep, SagaStepWithCompensationResponse } from "@core/common/domain/saga/step.saga";
+import { RecurringCreatedEvent } from "@core/recurring/domain/events/domain-events/recurring-created.event";
+
+interface OrderCreatedSagaPayload {
+  recurringId: string;
+  price: number;
+}
+
+export class OrderCreatedSaga extends SagaStep<RecurringCreatedEvent, OrderCreatedSagaPayload> {
+  get stepName(): string {
+      return 'order-created';
+  }
+
+  get retries(): number {
+      return 3;
+  }
+
+  async invoke({ recurring }: RecurringCreatedEvent): Promise<OrderCreatedSagaPayload> {
+      console.log(`[Saga] Invoking ${this.constructor.name}.invoke`, recurring);
+      return {
+        recurringId: recurring.id.value,
+        price: 50.00
+      };
+  }
+  async withCompenstation(data: OrderCreatedSagaPayload): Promise<SagaStepWithCompensationResponse> {
+      console.log(`[Saga] Invoking ${this.constructor.name}.withCompenstation`, data);
+      return {
+      idempotencyId: 'fake idemid withCompenstation OrderCreatedSaga'
+      };
+  }
+
+}

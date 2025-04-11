@@ -1,15 +1,15 @@
 import { AsyncLocalStorage } from 'async_hooks';
 import { AggregateRoot } from '@core/common/domain/aggregate-root';
 
-interface EventContext {
+interface EventStorageContext {
   aggregates: Set<AggregateRoot>;
 };
 
-const storage = new AsyncLocalStorage<EventContext>();
+const storage = new AsyncLocalStorage<EventStorageContext>();
 
-export class DomainEventContext {
+export class EventContext {
   static run<T>(callback: () => T): T {
-    const context: EventContext = { aggregates: new Set() };
+    const context: EventStorageContext = { aggregates: new Set() };
     return storage.run(context, callback);
   }
 

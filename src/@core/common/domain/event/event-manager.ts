@@ -1,7 +1,7 @@
 import EventEmitter2 from 'eventemitter2';
 import { AggregateRoot } from '@core/common/domain/aggregate-root';
 
-export class DomainEventManager {
+export class EventManager {
   domainEventsSubscriber: EventEmitter2;
   integrationEventsSubscriber: EventEmitter2;
 

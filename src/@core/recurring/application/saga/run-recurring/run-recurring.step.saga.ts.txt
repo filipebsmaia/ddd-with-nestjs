@@ -1,0 +1,32 @@
+import { SagaStep, SagaStepWithCompensationResponse } from "@core/common/domain/saga/step.saga";
+import { RecurringCreatedIntegrationEvent } from "@core/recurring/domain/events/integration-events/recurring-created.event";
+
+export class RunRecurringSaga extends SagaStep<RecurringCreatedIntegrationEvent, RecurringCreatedIntegrationEvent> {
+  get stepName(): string {
+    return 'run-recurring';
+  }
+
+  get retries(): number {
+    return 3;
+  }
+
+  async invoke({ eventName, occurredOn, payload, version }: RecurringCreatedIntegrationEvent): Promise<RecurringCreatedIntegrationEvent> {
+    console.log(`[Saga] Invoking ${this.constructor.name}.invoke`, payload);
+    return {
+      eventName,
+      occurredOn,
+      payload,
+      version
+    };
+  }
+
+  async withCompenstation(data: RecurringCreatedIntegrationEvent): Promise<SagaStepWithCompensationResponse> {
+    console.log(`[Saga] Invoking ${this.constructor.name}.withCompenstation`, data);
+
+    return {
+      idempotencyId: 'fake idemid withCompenstation RunRecurringSaga'
+    };
+
+  }
+
+}

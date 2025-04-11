@@ -20,7 +20,6 @@ export class IndividualPrismaRepository implements IndividualRepository {
 
   async add(entity: Individual): Promise<void> {
     const { recurrings, ...individual } = IndividualPrismaMapper.toPersistence(entity);
-    console.log(recurrings);
 
     this.uow.runTransaction(async () => {
       await this.repository.individual.upsert({

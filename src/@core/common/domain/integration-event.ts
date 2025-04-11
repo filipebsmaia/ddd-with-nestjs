@@ -1,9 +1,11 @@
-export abstract class IntegrationEvent<T = any> {
+
+type Payload = string | number | Date | { [key: string]: Payload } | Payload[] | null | undefined;
+export abstract class IntegrationEvent {
 
   constructor(
     readonly eventName: string,
-    readonly payload: T,
-    readonly version: T,
+    readonly payload: Payload,
+    readonly version: number,
     readonly occurredOn: Date) {
     //
   }

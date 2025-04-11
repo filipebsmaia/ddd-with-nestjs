@@ -1,16 +1,16 @@
 import { Global, Module } from '@nestjs/common';
 import { ApplicationService } from '@core/common/application/application.service';
-import { DomainEventManager } from '@core/common/domain/domain-event-manager';
+import { EventManager } from '@core/common/domain/event/event-manager';
 
 @Global()
 @Module({
   providers: [
     {
       provide: ApplicationService,
-      useFactory: (domainEventManager: DomainEventManager) => {
-        return new ApplicationService(domainEventManager);
+      useFactory: (eventManager: EventManager) => {
+        return new ApplicationService(eventManager);
       },
-      inject: [DomainEventManager],
+      inject: [EventManager],
     },
   ],
   exports: [ApplicationService],

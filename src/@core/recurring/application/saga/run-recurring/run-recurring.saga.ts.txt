@@ -1,0 +1,18 @@
+import { Saga } from "@core/common/domain/saga/saga";
+// import { RunRecurringSaga } from "./run-recurring.step.saga";
+import { SagaStep } from "@core/common/domain/saga/step.saga";
+import { OrderCreatedSaga } from "./order-created.step.saga";
+import { RecurringCreatedIntegrationEvent } from "@core/recurring/domain/events/integration-events/recurring-created.event";
+
+export class RecurringSaga extends Saga<RunRecurringSaga> {
+  get steps(): [RunRecurringSaga, ...SagaStep<any, any>[]] {
+    return [
+      new RunRecurringSaga(),
+      new OrderCreatedSaga(),
+    ];
+  }
+
+  async start(payload: RecurringCreatedIntegrationEvent): Promise<void> {
+    // TODO: start ad step 0 and invoke
+  }
+}
